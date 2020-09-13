@@ -55,8 +55,8 @@ public class AirMapUrlTileManager extends ViewGroupManager<AirMapUrlTile> {
     view.setMaximumZ(maximumZ);
   }
   
-  @ReactProp(name = "maximumNativeZ", defaultFloat = 0.0f)
-  public void setMaximumNativeZ(AirMapUrlTile view, float maximumNativeZ) {
+  @ReactProp(name = "maximumNativeZ", defaultInt = 0)
+  public void setMaximumNativeZ(AirMapUrlTile view, int maximumNativeZ) {
     view.setMaximumNativeZ(maximumNativeZ);
   }
 
