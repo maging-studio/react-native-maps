@@ -26,11 +26,17 @@ public class AirMapUrlTile extends AirMapFeature {
       if (AirMapUrlTile.this.flipY == true) {
         y = (1 << zoom) - y - 1;
       }
+      
+      float actualZ = zoom;
+      
+      if (AirMapUrlTile.this.maximumNativeZ > 0 && zoom > AirMapUrlTile.this.maximumNativeZ) {
+        actualZ = AirMapUrlTile.this.maximumNativeZ;
+      }
 
       String s = this.urlTemplate
           .replace("{x}", Integer.toString(x))
           .replace("{y}", Integer.toString(y))
-          .replace("{z}", Integer.toString(zoom));
+          .replace("{z}", Integer.toString(actualZ));
       URL url = null;
 
       if(AirMapUrlTile.this.maximumZ > 0 && zoom > maximumZ) {
@@ -62,6 +68,7 @@ public class AirMapUrlTile extends AirMapFeature {
   private float zIndex;
   private float maximumZ;
   private float minimumZ;
+  private float maximumNativeZ;
   private boolean flipY;
 
   public AirMapUrlTile(Context context) {
@@ -91,6 +98,14 @@ public class AirMapUrlTile extends AirMapFeature {
       tileOverlay.clearTileCache();
     }
   }
+  
+  public void setMaximumNativeZ(float mazimumNativeZ) {
+    this.maximumNativeZ = maximumNativeZ;
+    if (tileOverlay != null) {
+      tileOverlay.clearTileCache();
+    }
+  }
+
 
   public void setMinimumZ(float minimumZ) {
     this.minimumZ = minimumZ;
